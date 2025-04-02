@@ -9,3 +9,5 @@ ics based freetime seeker for cff employees.
     cp config.example.json config.json
 
     composer serve
+
+    npm run css
