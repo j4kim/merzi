@@ -18,6 +18,7 @@
     ],
     "scripts": {
         "serve": [
+            "Composer\\Config::disableProcessTimeout",
             "php -S localhost:1234 -t public"
         ]
     }
