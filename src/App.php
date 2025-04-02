@@ -26,7 +26,7 @@ class App
         });
 
         $this->router->get('/login', function () {
-            echo $this->templates->render('login');
+            echo $this->templates->render(Auth::check() ? 'logout' : 'login');
         });
 
         $this->router->post('/login', function () {
@@ -35,6 +35,11 @@ class App
                 return;
             }
             echo $this->templates->render('login', [ 'error' => '😭 Mauvais mot de passe...' ]);
+        });
+
+        $this->router->post('/logout', function () {
+            Auth::logout();
+            header('Location: /login');
         });
     }
 }
