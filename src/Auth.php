@@ -6,9 +6,7 @@ class Auth
 {
     public static function attempt(string $passphrase): bool
     {
-        $strConfig = file_get_contents("../config.json");
-        $config = json_decode($strConfig);
-        return $config->passphrase === $passphrase;
+        return Config::passphrase() === $passphrase;
     }
 
     public static function login(string $passphrase): bool
