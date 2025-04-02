@@ -3,7 +3,8 @@
     "type": "project",
     "require": {
         "bramus/router": "^1.6",
-        "league/plates": "^3.6"
+        "league/plates": "^3.6",
+        "sabre/vobject": "^4.5"
     },
     "autoload": {
         "psr-4": {
