@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <main>
+    <main class="p-1 max-w-5xl mx-auto">
         <?= $this->section('content') ?>
     </main>
 </body>
