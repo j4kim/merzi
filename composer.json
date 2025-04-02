@@ -1,0 +1,24 @@
+{
+    "name": "j4kim/merzi",
+    "type": "project",
+    "require": {
+        "bramus/router": "^1.6",
+        "league/plates": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "J4kim\\Merzi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Joaquim Perez",
+            "email": "jivkim@gmail.com"
+        }
+    ],
+    "scripts": {
+        "serve": [
+            "php -S localhost:1234 -t public"
+        ]
+    }
+}
