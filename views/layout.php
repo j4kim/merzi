@@ -17,7 +17,7 @@
         }
     </script>
     <script type="module" src="app.js"></script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="output.css" />
 </head>
 
 <body>
