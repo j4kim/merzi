@@ -24,5 +24,8 @@ class App
         $this->router->get('/', function () {
             echo $this->templates->render('home');
         });
+        $this->router->get('/login', function () {
+            echo $this->templates->render('login');
+        });
     }
 }
