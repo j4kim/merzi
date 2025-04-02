@@ -11,6 +11,7 @@
             name="passphrase"
             type="password"
             placeholder="mot de passe"
+            required
         >
     </p>
     <p>
@@ -21,4 +22,7 @@
             Connexion
         </button>
     </p>
+    <?php if(isset($error)) : ?>
+        <p><?= $error ?></p>
+    <?php endif ?>
 </form>
