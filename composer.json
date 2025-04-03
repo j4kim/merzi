@@ -4,7 +4,8 @@
     "require": {
         "bramus/router": "^1.6",
         "league/plates": "^3.6",
-        "sabre/vobject": "^4.5"
+        "sabre/vobject": "^4.5",
+        "guzzlehttp/guzzle": "^7.9"
     },
     "autoload": {
         "psr-4": {

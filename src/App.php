@@ -3,6 +3,8 @@
 namespace J4kim\Merzi;
 
 use Bramus\Router\Router;
+use GuzzleHttp\Client;
+use GuzzleHttp\Promise\Utils;
 use League\Plates\Engine;
 
 class App
@@ -48,8 +50,14 @@ class App
 
         $this->router->get('/api/events', function () {
             $calendars = Config::calendars();
+            $client = new Client();
+            $promises = [];
             foreach ($calendars as $cal) {
-                $cal->ics = file_get_contents($cal->url);
+                $promises[$cal->name] = $client->getAsync($cal->url);
+            }
+            $responses = Utils::unwrap($promises);
+            foreach ($calendars as $cal) {
+                $cal->ics = (string) $responses[$cal->name]->getBody();
             }
             echo json_encode($calendars);
         });
