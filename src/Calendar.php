@@ -2,6 +2,7 @@
 
 namespace J4kim\Merzi;
 
+use DateTimeImmutable;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\Utils;
 use Sabre\VObject\Reader;
@@ -21,11 +22,15 @@ class Calendar
     public function parseEvents()
     {
         $vcalendar = Reader::read($this->icsData);
+        $now = new DateTimeImmutable();
         foreach ($vcalendar->VEVENT as $vevent) {
+            $start = $vevent->DTSTART->getDateTime();
+            $end = $vevent->DTEND->getDateTime();
+            if ($end < $now) continue;
             $this->events[] = [
                 'title' => (string) $vevent->SUMMARY,
-                'start' => $vevent->DTSTART->getDateTime()->format('Y-m-d H:i:s'),
-                'end' => $vevent->DTEND->getDateTime()->format('Y-m-d H:i:s'),
+                'start' => $start->format('Y-m-d H:i:s'),
+                'end' => $end->format('Y-m-d H:i:s'),
             ];
         }
     }
