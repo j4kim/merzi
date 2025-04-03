@@ -1,5 +1,9 @@
 <?php $this->layout('layout'); ?>
 
+<div class="my-6">
+    <a href=".." class="hover:opacity-50">← Retour</a>
+</div>
+
 <form
     class="flex flex-col gap-3 mt-4"
     method="POST"
@@ -35,15 +39,11 @@
         </div>
     <?php endforeach; ?>
 
-    <p class="my-2">
+    <p>
         <button
             class="border border-slate-300 rounded-sm bg-slate-500 text-white hover:bg-slate-600 w-full px-4 py-2"
             type="submit">
             Sauver
         </button>
     </p>
-
-    <div>
-        <a href=".." class="hover:opacity-50">Retour</a>
-    </div>
 </form>

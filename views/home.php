@@ -3,7 +3,7 @@
 <div id="calendar" class="loading"></div>
 
 <div class="mt-2">
-    <a href="settings" class="hover:opacity-50">Réglages</a>
+    <a href="settings" class="hover:opacity-50">⚙ Réglages</a>
 </div>
 
 <style>
