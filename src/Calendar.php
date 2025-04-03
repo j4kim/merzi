@@ -31,6 +31,7 @@ class Calendar
                 'title' => (string) $vevent->SUMMARY,
                 'start' => $start->format('Y-m-d H:i:s'),
                 'end' => $end->format('Y-m-d H:i:s'),
+                'allDay' => !$vevent->DTSTART->hasTime(),
             ];
         }
     }
