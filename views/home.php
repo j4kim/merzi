@@ -11,7 +11,7 @@
     import listPlugin from "https://cdn.skypack.dev/@fullcalendar/list@6.1.17";
     import multiMonthPlugin from "https://cdn.skypack.dev/@fullcalendar/multimonth@6.1.17";
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", async function() {
         const calendarEl = document.getElementById("calendar");
         const calendar = new Calendar(calendarEl, {
             plugins: [dayGridPlugin, timeGridPlugin, listPlugin, multiMonthPlugin],
@@ -22,5 +22,9 @@
             },
         });
         calendar.render();
+
+        const response = await fetch("/api/events");
+        const events = await response.json();
+        console.log(events)
     });
 </script>

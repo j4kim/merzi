@@ -38,12 +38,20 @@ class App
                 header('Location: /');
                 return;
             }
-            echo $this->templates->render('login', [ 'error' => '😭 Mauvais mot de passe...' ]);
+            echo $this->templates->render('login', ['error' => '😭 Mauvais mot de passe...']);
         });
 
         $this->router->post('/logout', function () {
             Auth::logout();
             header('Location: /login');
+        });
+
+        $this->router->get('/api/events', function () {
+            $calendars = Config::calendars();
+            foreach ($calendars as $cal) {
+                $cal->ics = file_get_contents($cal->url);
+            }
+            echo json_encode($calendars);
         });
     }
 }
