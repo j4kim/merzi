@@ -54,6 +54,7 @@ class Calendar
         $responses = Utils::unwrap($promises);
         $calendars = [];
         foreach ($calConfigs as $cal) {
+            if (!$cal->enabled) continue;
             $icsData = (string) $responses[$cal->name]->getBody();
             $calendars[] = new Calendar($cal->name, $icsData, $cal->color);
         }
