@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "ics based freetime seeker for cff employees.",
   "scripts": {
-    "css": "npx @tailwindcss/cli -i ./public/input.css -o ./public/output.css --watch"
+    "css": "npx @tailwindcss/cli -i ./public/input.css -o ./public/output.css --watch",
+    "build": "npx @tailwindcss/cli -i ./public/input.css -o ./public/output.css --minify"
   },
   "repository": {
     "type": "git",
