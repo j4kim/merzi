@@ -27,6 +27,15 @@
     import listPlugin from "https://cdn.skypack.dev/@fullcalendar/list@6.1.17";
     import multiMonthPlugin from "https://cdn.skypack.dev/@fullcalendar/multimonth@6.1.17";
 
+    const colors = [
+        "#55cc99",
+        "#cc9955",
+        "#9955cc",
+        "#5599cc",
+        "#99cc55",
+        "#cc5599",
+    ];
+
     document.addEventListener("DOMContentLoaded", async function() {
         const calendarEl = document.getElementById("calendar");
         const calendar = new Calendar(calendarEl, {
@@ -46,8 +55,15 @@
         calendar.render();
 
         const response = await fetch("./api/calendars");
-        const calendars = await response.json();
-        calendars.forEach((cal) => {
+        const {
+            calendars,
+            showIndividualCalendars
+        } = await response.json();
+        calendars.forEach((cal, index) => {
+            if (showIndividualCalendars) {
+                cal.color = colors[index % colors.length]
+                calendar.addEventSource(cal);
+            }
             cal.freeDates = new Set();
             cal.events.forEach(event => {
                 const start = dayjs(event.start);

@@ -5,7 +5,7 @@
 </div>
 
 <form
-    class="flex flex-col gap-3 mt-4"
+    class="flex flex-col gap-4 mt-4"
     method="POST"
     action="settings">
     <?php foreach (J4kim\Merzi\Config::calendars() as $index => $cal): ?>
@@ -38,6 +38,17 @@
             </div>
         </div>
     <?php endforeach; ?>
+
+    <div>
+
+        <label>
+            <input
+                type="checkbox"
+                name="showIndividualCalendars"
+                <?= J4kim\Merzi\Config::showIndividualCalendars() ? 'checked' : '' ?>>
+            Afficher les plage libres de chaque personne
+        </label>
+    </div>
 
     <p>
         <button

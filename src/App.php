@@ -41,7 +41,10 @@ class App
                     'enabled' => in_array($index, $_POST['enabled']),
                 ];
             }
-            Config::store(['calendars' => $calendars]);
+            Config::store([
+                'calendars' => $calendars,
+                'showIndividualCalendars' => isset($_POST['showIndividualCalendars'])
+            ]);
             header('Location: /');
         });
 
@@ -63,7 +66,10 @@ class App
         });
 
         $this->router->get('/api/calendars', function () {
-            echo json_encode(Calendar::getCalendars());
+            echo json_encode([
+                'calendars' => Calendar::getCalendars(),
+                'showIndividualCalendars' => Config::showIndividualCalendars(),
+            ]);
         });
     }
 }
