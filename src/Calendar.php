@@ -45,7 +45,7 @@ class Calendar
         $calendars = [];
         foreach ($calConfigs as $cal) {
             $icsData = (string) $responses[$cal->name]->getBody();
-            $calendars[] = new Calendar($cal->name, $icsData);
+            $calendars[] = new Calendar($cal->name, $icsData, $cal->color);
         }
         return $calendars;
     }

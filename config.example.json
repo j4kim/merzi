@@ -3,11 +3,13 @@
     "calendars": [
         {
             "name": "Mark",
-            "url": "http://localhost:5000/Mark.ics"
+            "url": "http://localhost:5000/Mark.ics",
+            "color": "#55cc99"
         },
         {
             "name": "Helly",
-            "url": "http://localhost:5000/Helly.ics"
+            "url": "http://localhost:5000/Helly.ics",
+            "color": "#cc5599"
         }
     ]
 }
