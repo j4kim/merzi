@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\Utils;
 use Sabre\VObject\Reader;
 use stdClass;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 class Calendar
 {
@@ -44,14 +45,25 @@ class Calendar
 
     public static function fetchIcs(array $calConfigs)
     {
+        $cache = new FilesystemAdapter();
         $client = new Client();
         $promises = [];
         foreach ($calConfigs as $cal) {
-            $promises[$cal->name] = $client->getAsync($cal->url);
+            $key = preg_replace('/[\{\}\(\)\/\\\@\:]/', "-", $cal->url);
+            $cal->cached = $cache->getItem($key);
+            if (!$cal->cached->isHit()) {
+                $promises[$cal->name] = $client->getAsync($cal->url);
+            }
         }
         $responses = Utils::unwrap($promises);
         foreach ($calConfigs as $cal) {
-            $cal->icsData = (string) $responses[$cal->name]->getBody();
+            if ($cal->cached->isHit()) {
+                $cal->icsData = $cal->cached->get();
+            } else {
+                $cal->icsData = (string) $responses[$cal->name]->getBody();
+                $cal->cached->set($cal->icsData)->expiresAfter(3600);
+                $cache->save($cal->cached);
+            }
         }
     }
 
