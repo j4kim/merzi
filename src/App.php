@@ -22,18 +22,12 @@ class App
     private function registerRoutes()
     {
         $this->router->get('/', function () {
-            if (!Auth::check()) {
-                header('Location: /login');
-                return;
-            }
+            Auth::checkAndRedirect();
             echo $this->templates->render('home');
         });
 
         $this->router->get('/settings', function () {
-            if (!Auth::check()) {
-                header('Location: /login');
-                return;
-            }
+            Auth::checkAndRedirect();
             echo $this->templates->render('settings');
         });
 
