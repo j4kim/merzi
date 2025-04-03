@@ -33,7 +33,6 @@
         const response = await fetch("/api/calendars");
         const calendars = await response.json();
         calendars.forEach((cal) => {
-            calendar.addEventSource(cal);
             cal.freeDates = new Set();
             cal.events.forEach(event => {
                 const start = dayjs(event.start);
@@ -44,12 +43,36 @@
                     d = d.add(1, 'day');
                 }
             });
-            console.log(cal.freeDates);
+            console.log("free dates for", cal.id, cal.freeDates);
         });
         let commonDates = new Set(calendars[0].freeDates);
         for (let index = 1; index < calendars.length; index++) {
             commonDates = commonDates.intersection(calendars[index].freeDates);
         }
-        console.log(commonDates);
+        const sortedDates = Array.from(commonDates).toSorted((x, y) => x - y);
+        console.log("common dates", sortedDates);
+        let d = dayjs(sortedDates[0]);
+        const last = dayjs(sortedDates[sortedDates.length - 1]);
+        const events = [];
+        let event = null;
+        while (last.diff(d, 'day') > -2) {
+            if (commonDates.has(d.format('YYYYMMDD'))) {
+                if (!event) {
+                    event = {
+                        start: d.toDate(),
+                        allDay: true,
+                        title: "Dispo",
+                    };
+                }
+            } else if (event) {
+                event.end = d.toDate();
+                events.push(event);
+                event = null;
+            }
+            d = d.add(1, 'day');
+        }
+        calendar.addEventSource({
+            events
+        });
     });
 </script>
