@@ -6,6 +6,7 @@
     import {
         Calendar
     } from "https://cdn.skypack.dev/@fullcalendar/core@6.1.17";
+    import locale from "https://cdn.skypack.dev/@fullcalendar/core@6.1.17/locales/fr-ch";
     import dayGridPlugin from "https://cdn.skypack.dev/@fullcalendar/daygrid@6.1.17";
     import timeGridPlugin from "https://cdn.skypack.dev/@fullcalendar/timegrid@6.1.17";
     import listPlugin from "https://cdn.skypack.dev/@fullcalendar/list@6.1.17";
@@ -15,6 +16,7 @@
         const calendarEl = document.getElementById("calendar");
         const calendar = new Calendar(calendarEl, {
             plugins: [dayGridPlugin, timeGridPlugin, listPlugin, multiMonthPlugin],
+            locale,
             headerToolbar: {
                 left: "prev,next today",
                 center: "title",
