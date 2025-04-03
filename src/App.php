@@ -43,6 +43,7 @@ class App
             }
             Config::store([
                 'calendars' => $calendars,
+                'regex' => $_POST['regex'],
                 'showIndividual' => isset($_POST['showIndividual']),
                 'showCommon' => isset($_POST['showCommon']),
             ]);
