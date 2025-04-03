@@ -2,8 +2,9 @@
 
 <div id="calendar" class="loading"></div>
 
-<div class="mt-2">
+<div class="mt-2 flex justify-between">
     <a href="settings" class="hover:opacity-50">⚙ Réglages</a>
+    <a href="fresh" class="hover:opacity-50">🔄 Rafraichir</a>
 </div>
 
 <style>

@@ -4,6 +4,7 @@ namespace J4kim\Merzi;
 
 use Bramus\Router\Router;
 use League\Plates\Engine;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 class App
 {
@@ -73,6 +74,12 @@ class App
                 'showIndividual' => Config::showIndividual(),
                 'showCommon' => Config::showCommon(),
             ]);
+        });
+
+        $this->router->get('/fresh', function () {
+            $cache = new FilesystemAdapter();
+            $cache->clear();
+            header('Location: /');
         });
     }
 }
