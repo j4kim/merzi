@@ -10,6 +10,11 @@
             "name": "Helly",
             "url": "http://localhost:5000/Helly.ics",
             "color": "#cc5599"
+        },
+        {
+            "name": "Dylan",
+            "url": "http://localhost:5000/Dylan.ics",
+            "color": "#9955cc"
         }
     ],
     "regex": "/^Absence: (RT|CT|F)$/"
