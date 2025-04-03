@@ -8,26 +8,44 @@ use Sabre\VObject\Reader;
 
 class Calendar
 {
-    public static function getEventSources()
+    public array $events;
+
+    public function __construct(
+        public string $id,
+        private string $icsData,
+        public ?string $color = null,
+    ) {
+        $this->parseEvents();
+    }
+
+    public function parseEvents()
     {
-        $calendars = Config::calendars();
+        $vcalendar = Reader::read($this->icsData);
+        foreach ($vcalendar->VEVENT as $vevent) {
+            $this->events[] = [
+                'title' => (string) $vevent->SUMMARY,
+                'start' => $vevent->DTSTART->getDateTime()->format('Y-m-d H:i:s'),
+                'end' => $vevent->DTEND->getDateTime()->format('Y-m-d H:i:s'),
+            ];
+        }
+    }
+
+    /**
+     * @return array of Calendar objects
+     */
+    public static function getCalendars(): array
+    {
+        $calConfigs = Config::calendars();
         $client = new Client();
         $promises = [];
-        foreach ($calendars as $cal) {
+        foreach ($calConfigs as $cal) {
             $promises[$cal->name] = $client->getAsync($cal->url);
         }
         $responses = Utils::unwrap($promises);
-        foreach ($calendars as $cal) {
+        $calendars = [];
+        foreach ($calConfigs as $cal) {
             $icsData = (string) $responses[$cal->name]->getBody();
-            $vcalendar = Reader::read($icsData);
-            $cal->events = [];
-            foreach ($vcalendar->VEVENT as $vevent) {
-                $cal->events[] = [
-                    'summary' => (string) $vevent->SUMMARY,
-                    'start' => $vevent->DTSTART->getDateTime()->format('Y-m-d H:i:s'),
-                    'end' => $vevent->DTEND->getDateTime()->format('Y-m-d H:i:s'),
-                ];
-            }
+            $calendars[] = new Calendar($cal->name, $icsData);
         }
         return $calendars;
     }

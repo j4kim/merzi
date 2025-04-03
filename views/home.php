@@ -23,8 +23,8 @@
         });
         calendar.render();
 
-        const response = await fetch("/api/events");
-        const events = await response.json();
-        console.log(events)
+        const response = await fetch("/api/calendars");
+        const eventSources = await response.json();
+        eventSources.forEach((src) => calendar.addEventSource(src));
     });
 </script>

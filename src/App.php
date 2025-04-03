@@ -46,8 +46,8 @@ class App
             header('Location: /login');
         });
 
-        $this->router->get('/api/events', function () {
-            echo json_encode(Calendar::getEventSources());
+        $this->router->get('/api/calendars', function () {
+            echo json_encode(Calendar::getCalendars());
         });
     }
 }
