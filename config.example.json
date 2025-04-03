@@ -19,5 +19,6 @@
     ],
     "regex": "\/^Absence: (RT|CT|F)$\/",
     "showIndividual": false,
-    "showCommon": true
+    "showCommon": true,
+    "base": "/"
 }

@@ -1,7 +1,9 @@
 <?php $this->layout('layout'); ?>
 
+<?php $base = J4kim\Merzi\Config::base(); ?>
+
 <div class="my-6">
-    <a href=".." class="hover:opacity-50">← Retour</a>
+    <a href="<?= $base ?>" class="hover:opacity-50">← Retour</a>
 </div>
 
 

@@ -15,25 +15,41 @@ class App
     {
         session_start();
         $this->router = new Router();
-        $this->templates = new Engine('../views');;
+        $this->templates = new Engine('../views');
         $this->registerRoutes();
         $this->router->run();
     }
 
+    private function redirect(string $to = "")
+    {
+        $loc = Config::base() . $to;
+        header("Location: $loc");
+    }
+
+    public function checkAndRedirect()
+    {
+        if (!Auth::check()) {
+            $this->redirect("login");
+            die();
+        }
+    }
+
     private function registerRoutes()
     {
+        $this->router->setBasePath(Config::base());
+
         $this->router->get('/', function () {
-            Auth::checkAndRedirect();
+            $this->checkAndRedirect();
             echo $this->templates->render('home');
         });
 
         $this->router->get('/settings', function () {
-            Auth::checkAndRedirect();
+            $this->checkAndRedirect();
             echo $this->templates->render('settings');
         });
 
         $this->router->post('/settings', function () {
-            Auth::checkAndRedirect();
+            $this->checkAndRedirect();
             $calendars = [];
             foreach ($_POST['name'] as $index => $name) {
                 $calendars[] = [
@@ -48,7 +64,7 @@ class App
                 'showIndividual' => isset($_POST['showIndividual']),
                 'showCommon' => isset($_POST['showCommon']),
             ]);
-            header('Location: /');
+            $this->redirect();
         });
 
         $this->router->get('/login', function () {
@@ -57,7 +73,7 @@ class App
 
         $this->router->post('/login', function () {
             if (Auth::login($_POST['passphrase'])) {
-                header('Location: /');
+                $this->redirect();
                 return;
             }
             echo $this->templates->render('login', ['error' => '😭 Mauvais mot de passe...']);
@@ -65,7 +81,7 @@ class App
 
         $this->router->post('/logout', function () {
             Auth::logout();
-            header('Location: /login');
+            $this->redirect("login");
         });
 
         $this->router->get('/api/calendars', function () {
@@ -79,7 +95,7 @@ class App
         $this->router->get('/fresh', function () {
             $cache = new FilesystemAdapter();
             $cache->clear();
-            header('Location: /');
+            $this->redirect();
         });
     }
 }

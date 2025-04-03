@@ -2,9 +2,11 @@
 
 <div id="calendar" class="loading"></div>
 
+<?php $base = J4kim\Merzi\Config::base(); ?>
+
 <div class="mt-2 flex justify-between">
-    <a href="settings" class="hover:opacity-50">⚙ Réglages</a>
-    <a href="fresh" class="hover:opacity-50">🔄 Rafraichir</a>
+    <a href="<?= $base ?>settings" class="hover:opacity-50">⚙ Réglages</a>
+    <a href="<?= $base ?>fresh" class="hover:opacity-50">🔄 Rafraichir</a>
 </div>
 
 <style>
@@ -55,7 +57,7 @@
         });
         calendar.render();
 
-        const response = await fetch("./api/calendars");
+        const response = await fetch("<?= $base ?>api/calendars");
         const {
             calendars,
             showIndividual,

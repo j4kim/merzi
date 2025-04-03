@@ -24,12 +24,4 @@ class Auth
     {
         return isset($_SESSION['authenticated']) && $_SESSION['authenticated'];
     }
-
-    public static function checkAndRedirect()
-    {
-        if (!self::check()) {
-            header('Location: /login');
-            die();
-        }
-    }
 }
