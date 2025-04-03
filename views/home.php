@@ -2,6 +2,10 @@
 
 <div id="calendar" class="loading"></div>
 
+<div class="mt-2">
+    <a href="settings" class="hover:opacity-50">Réglages</a>
+</div>
+
 <style>
     .loading .fc-toolbar-title {
         color: transparent;

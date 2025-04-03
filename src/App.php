@@ -29,6 +29,14 @@ class App
             echo $this->templates->render('home');
         });
 
+        $this->router->get('/settings', function () {
+            if (!Auth::check()) {
+                header('Location: /login');
+                return;
+            }
+            echo $this->templates->render('settings');
+        });
+
         $this->router->get('/login', function () {
             echo $this->templates->render(Auth::check() ? 'logout' : 'login');
         });
