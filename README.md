@@ -14,14 +14,6 @@ Create config file:
 
     cp config.example.json config.json
 
-Serve php app:
+Serve locally:
 
     composer serve
-
-Run tailwind:
-
-    npm run css
-
-Serve local ics example files:
-
-    php -S localhost:5000 -t examples

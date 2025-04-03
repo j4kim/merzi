@@ -21,7 +21,7 @@
     "scripts": {
         "serve": [
             "Composer\\Config::disableProcessTimeout",
-            "php -S localhost:1234 -t public"
+            "npx concurrently \"php -S localhost:1234 -t public\" \"php -S localhost:5000 -t examples\" \"npm run css\" --names=php,ics,css -c \"#93c5fd,#c4b5fd,#fdba74\""
         ]
     }
 }
