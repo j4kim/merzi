@@ -30,6 +30,7 @@ class Calendar
             $title = (string) $vevent->SUMMARY;
             if ($end < $now) continue;
             if (!preg_match($regex, $title)) continue;
+            $title = str_replace("Absence", $this->id, $title);
             $this->events[] = [
                 'title' => $title,
                 'start' => $start->format('Y-m-d H:i:s'),
