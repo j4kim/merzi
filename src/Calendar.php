@@ -9,7 +9,7 @@ use Sabre\VObject\Reader;
 
 class Calendar
 {
-    public array $events;
+    public array $events = [];
 
     public function __construct(
         public string $id,
