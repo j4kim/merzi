@@ -41,7 +41,7 @@
         });
         calendar.render();
 
-        const response = await fetch("/api/calendars");
+        const response = await fetch("./api/calendars");
         const calendars = await response.json();
         calendars.forEach((cal) => {
             cal.freeDates = new Set();
