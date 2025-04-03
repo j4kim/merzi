@@ -40,13 +40,22 @@
     <?php endforeach; ?>
 
     <div>
-
         <label>
             <input
                 type="checkbox"
-                name="showIndividualCalendars"
-                <?= J4kim\Merzi\Config::showIndividualCalendars() ? 'checked' : '' ?>>
+                name="showIndividual"
+                <?= J4kim\Merzi\Config::showIndividual() ? 'checked' : '' ?>>
             Afficher les plage libres de chaque personne
+        </label>
+    </div>
+
+    <div>
+        <label>
+            <input
+                type="checkbox"
+                name="showCommon"
+                <?= J4kim\Merzi\Config::showCommon() ? 'checked' : '' ?>>
+            Afficher les plages libres pour tout le monde
         </label>
     </div>
 

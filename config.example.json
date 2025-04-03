@@ -17,5 +17,7 @@
             "enabled": true
         }
     ],
-    "regex": "\/^Absence: (RT|CT|F)$\/"
+    "regex": "\/^Absence: (RT|CT|F)$\/",
+    "showIndividual": false,
+    "showCommon": true
 }

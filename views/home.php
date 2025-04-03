@@ -57,10 +57,12 @@
         const response = await fetch("./api/calendars");
         const {
             calendars,
-            showIndividualCalendars
+            showIndividual,
+            showCommon
         } = await response.json();
+
         calendars.forEach((cal, index) => {
-            if (showIndividualCalendars) {
+            if (showIndividual) {
                 cal.color = colors[index % colors.length]
                 calendar.addEventSource(cal);
             }
@@ -76,35 +78,38 @@
             });
             console.log("free dates for", cal.id, cal.freeDates);
         });
-        let commonDates = new Set(calendars[0].freeDates);
-        for (let index = 1; index < calendars.length; index++) {
-            commonDates = commonDates.intersection(calendars[index].freeDates);
-        }
-        const sortedDates = Array.from(commonDates).toSorted((x, y) => x - y);
-        console.log("common dates", sortedDates);
-        let d = dayjs(sortedDates[0]);
-        const last = dayjs(sortedDates[sortedDates.length - 1]);
-        const events = [];
-        let event = null;
-        while (last.diff(d, 'day') > -2) {
-            if (commonDates.has(d.format('YYYYMMDD'))) {
-                if (!event) {
-                    event = {
-                        start: d.toDate(),
-                        allDay: true,
-                        title: "Dispo",
-                    };
-                }
-            } else if (event) {
-                event.end = d.toDate();
-                events.push(event);
-                event = null;
+
+        if (showCommon) {
+            let commonDates = new Set(calendars[0].freeDates);
+            for (let index = 1; index < calendars.length; index++) {
+                commonDates = commonDates.intersection(calendars[index].freeDates);
             }
-            d = d.add(1, 'day');
+            const sortedDates = Array.from(commonDates).toSorted((x, y) => x - y);
+            console.log("common dates", sortedDates);
+            let d = dayjs(sortedDates[0]);
+            const last = dayjs(sortedDates[sortedDates.length - 1]);
+            const events = [];
+            let event = null;
+            while (last.diff(d, 'day') > -2) {
+                if (commonDates.has(d.format('YYYYMMDD'))) {
+                    if (!event) {
+                        event = {
+                            start: d.toDate(),
+                            allDay: true,
+                            title: "Dispo",
+                        };
+                    }
+                } else if (event) {
+                    event.end = d.toDate();
+                    events.push(event);
+                    event = null;
+                }
+                d = d.add(1, 'day');
+            }
+            calendar.addEventSource({
+                events
+            });
         }
-        calendar.addEventSource({
-            events
-        });
 
         calendarEl.classList.remove('loading')
     });

@@ -43,7 +43,8 @@ class App
             }
             Config::store([
                 'calendars' => $calendars,
-                'showIndividualCalendars' => isset($_POST['showIndividualCalendars'])
+                'showIndividual' => isset($_POST['showIndividual']),
+                'showCommon' => isset($_POST['showCommon']),
             ]);
             header('Location: /');
         });
@@ -68,7 +69,8 @@ class App
         $this->router->get('/api/calendars', function () {
             echo json_encode([
                 'calendars' => Calendar::getCalendars(),
-                'showIndividualCalendars' => Config::showIndividualCalendars(),
+                'showIndividual' => Config::showIndividual(),
+                'showCommon' => Config::showCommon(),
             ]);
         });
     }
