@@ -9,6 +9,16 @@
     function deleteCal(btn) {
         btn.closest('.calconfig').remove();
     }
+
+    function addCal() {
+        const newcalconfig = document.querySelector('.calconfig').cloneNode(true);
+        newcalconfig.querySelectorAll("input, button").forEach(el => {
+            el.value = "";
+            el.checked = false;
+            el.disabled = false;
+        })
+        document.querySelector('.calconfigs').appendChild(newcalconfig);
+    }
 </script>
 
 <form
@@ -16,7 +26,7 @@
     method="POST"
     action="settings">
     <div
-        class="flex flex-col gap-2">
+        class="flex flex-col gap-2 calconfigs">
         Calendriers
         <?php foreach (J4kim\Merzi\Config::calendars() as $index => $cal): ?>
             <div class="calconfig">
@@ -56,6 +66,12 @@
             </div>
         <?php endforeach; ?>
     </div>
+    <button
+        type="button"
+        class="hover:opacity-50 -mt-4 w-50 mx-auto"
+        onclick="addCal()">
+        + Ajouter calendrier
+    </button>
 
     <div>
         <p class="mb-2">Expression régulière pour filtrer les événements libres</p>
