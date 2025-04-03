@@ -36,7 +36,8 @@
             initialView: 'listYear',
             buttonText: {
                 list: 'Liste'
-            }
+            },
+            height: '95dvh',
         });
         calendar.render();
 
