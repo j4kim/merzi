@@ -3,11 +3,11 @@
     "calendars": [
         {
             "name": "Mark",
-            "url": "http://localhost:1234/examples/Mark.ics"
+            "url": "http://localhost:5000/Mark.ics"
         },
         {
             "name": "Helly",
-            "url": "http://localhost:1234/examples/Helly.ics"
+            "url": "http://localhost:5000/Helly.ics"
         }
     ]
 }
