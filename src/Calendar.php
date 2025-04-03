@@ -23,12 +23,15 @@ class Calendar
     {
         $vcalendar = Reader::read($this->icsData);
         $now = new DateTimeImmutable();
+        $regex = Config::regex();
         foreach ($vcalendar->VEVENT as $vevent) {
             $start = $vevent->DTSTART->getDateTime();
             $end = $vevent->DTEND->getDateTime();
+            $title = (string) $vevent->SUMMARY;
             if ($end < $now) continue;
+            if (!preg_match($regex, $title)) continue;
             $this->events[] = [
-                'title' => (string) $vevent->SUMMARY,
+                'title' => $title,
                 'start' => $start->format('Y-m-d H:i:s'),
                 'end' => $end->format('Y-m-d H:i:s'),
                 'allDay' => !$vevent->DTSTART->hasTime(),
