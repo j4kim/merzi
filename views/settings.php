@@ -4,7 +4,7 @@
     class="flex flex-col gap-3 mt-4"
     method="POST"
     action="settings">
-    <?php foreach (J4kim\Merzi\Config::calendars() as $cal): ?>
+    <?php foreach (J4kim\Merzi\Config::calendars() as $index => $cal): ?>
         <div>
             <div class="flex gap-2 flex-wrap">
                 <input
@@ -27,6 +27,7 @@
                     <input
                         type="checkbox"
                         name="enabled[]"
+                        value="<?= $index ?>"
                         <?= $cal->enabled ? 'checked' : '' ?>>
                     Activé
                 </label>

@@ -31,6 +31,20 @@ class App
             echo $this->templates->render('settings');
         });
 
+        $this->router->post('/settings', function () {
+            Auth::checkAndRedirect();
+            $calendars = [];
+            foreach ($_POST['name'] as $index => $name) {
+                $calendars[] = [
+                    'name' => $name,
+                    'url' => $_POST['url'][$index],
+                    'enabled' => in_array($index, $_POST['enabled']),
+                ];
+            }
+            Config::store(['calendars' => $calendars]);
+            header('Location: /');
+        });
+
         $this->router->get('/login', function () {
             echo $this->templates->render(Auth::check() ? 'logout' : 'login');
         });
