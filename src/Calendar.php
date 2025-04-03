@@ -6,16 +6,18 @@ use DateTimeImmutable;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\Utils;
 use Sabre\VObject\Reader;
+use stdClass;
 
 class Calendar
 {
+    public string $id;
+    private string $icsData;
     public array $events = [];
 
-    public function __construct(
-        public string $id,
-        private string $icsData,
-        public ?string $color = null,
-    ) {
+    public function __construct(stdClass $calConfig)
+    {
+        $this->id = $calConfig->name;
+        $this->icsData = $calConfig->icsData;
         $this->parseEvents();
     }
 
@@ -40,23 +42,28 @@ class Calendar
         }
     }
 
-    /**
-     * @return array of Calendar objects
-     */
-    public static function getCalendars(): array
+    public static function fetchIcs(array $calConfigs)
     {
-        $calConfigs = Config::calendars();
         $client = new Client();
         $promises = [];
         foreach ($calConfigs as $cal) {
             $promises[$cal->name] = $client->getAsync($cal->url);
         }
         $responses = Utils::unwrap($promises);
-        $calendars = [];
         foreach ($calConfigs as $cal) {
-            if (!$cal->enabled) continue;
-            $icsData = (string) $responses[$cal->name]->getBody();
-            $calendars[] = new Calendar($cal->name, $icsData, $cal->color);
+            $cal->icsData = (string) $responses[$cal->name]->getBody();
+        }
+    }
+
+    /**
+     * @return array of Calendar objects
+     */
+    public static function getCalendars(): array
+    {
+        $calConfigs = array_filter(Config::calendars(), fn($c) => $c->enabled);
+        self::fetchIcs($calConfigs);
+        foreach ($calConfigs as $calConfig) {
+            $calendars[] = new Calendar($calConfig);
         }
         return $calendars;
     }
