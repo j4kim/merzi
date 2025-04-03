@@ -3,19 +3,19 @@
     "calendars": [
         {
             "name": "Mark",
-            "url": "http://localhost:5000/Mark.ics",
-            "color": "#55cc99"
+            "url": "http:\/\/localhost:5000\/Mark.ics",
+            "enabled": true
         },
         {
             "name": "Helly",
-            "url": "http://localhost:5000/Helly.ics",
-            "color": "#cc5599"
+            "url": "http:\/\/localhost:5000\/Helly.ics",
+            "enabled": true
         },
         {
             "name": "Dylan",
-            "url": "http://localhost:5000/Dylan.ics",
-            "color": "#9955cc"
+            "url": "http:\/\/localhost:5000\/Dylan.ics",
+            "enabled": true
         }
     ],
-    "regex": "/^Absence: (RT|CT|F)$/"
+    "regex": "\/^Absence: (RT|CT|F)$\/"
 }
