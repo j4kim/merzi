@@ -2,6 +2,8 @@
 
 <div id="calendar"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
 <script type="module">
     import {
         Calendar
@@ -29,7 +31,25 @@
         calendar.render();
 
         const response = await fetch("/api/calendars");
-        const eventSources = await response.json();
-        eventSources.forEach((src) => calendar.addEventSource(src));
+        const calendars = await response.json();
+        calendars.forEach((cal) => {
+            calendar.addEventSource(cal);
+            cal.freeDates = new Set();
+            cal.events.forEach(event => {
+                const start = dayjs(event.start);
+                const end = dayjs(event.end);
+                let d = start;
+                while (end.diff(d, 'day')) {
+                    cal.freeDates.add(d.format('YYYYMMDD'));
+                    d = d.add(1, 'day');
+                }
+            });
+            console.log(cal.freeDates);
+        });
+        let commonDates = new Set(calendars[0].freeDates);
+        for (let index = 1; index < calendars.length; index++) {
+            commonDates = commonDates.intersection(calendars[index].freeDates);
+        }
+        console.log(commonDates);
     });
 </script>
