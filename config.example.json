@@ -12,5 +12,5 @@
             "color": "#cc5599"
         }
     ],
-    "regex": "/Absence: (RT|CT|F)/"
+    "regex": "/^Absence: (RT|CT|F)$/"
 }
