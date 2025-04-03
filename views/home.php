@@ -1,6 +1,16 @@
 <?php $this->layout('layout'); ?>
 
-<div id="calendar"></div>
+<div id="calendar" class="loading"></div>
+
+<style>
+    .loading .fc-toolbar-title {
+        color: transparent;
+        background-image: url(https://media.tenor.com/yfaFcsYBgqMAAAAi/loading-gif.gif);
+        background-size: 30px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 
@@ -74,5 +84,7 @@
         calendar.addEventSource({
             events
         });
+
+        calendarEl.classList.remove('loading')
     });
 </script>
