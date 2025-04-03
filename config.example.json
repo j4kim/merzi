@@ -1,7 +1,13 @@
 {
     "passphrase": "sandwich au fromage",
-    "calendars": {
-        "Mark": "http://localhost:1234/examples/Mark.ics",
-        "Helly": "http://localhost:1234/examples/Helly.ics"
-    }
+    "calendars": [
+        {
+            "name": "Mark",
+            "url": "http://localhost:1234/examples/Mark.ics"
+        },
+        {
+            "name": "Helly",
+            "url": "http://localhost:1234/examples/Helly.ics"
+        }
+    ]
 }
