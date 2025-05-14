@@ -55,7 +55,7 @@ class App
                 $calendars[] = [
                     'name' => $name,
                     'url' => $_POST['url'][$index],
-                    'enabled' => in_array($index, $_POST['enabled']),
+                    'enabled' => isset($_POST['enabled']) && in_array($index, $_POST['enabled']),
                 ];
             }
             Config::store([

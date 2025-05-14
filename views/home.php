@@ -77,6 +77,9 @@
             showCommon
         } = json
 
+        if (!calendars.length) {
+            return console.warn("No calendars returned from API");
+        }
 
         calendars.forEach((cal, index) => {
             if (showIndividual) {

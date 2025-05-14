@@ -74,6 +74,7 @@ class Calendar
     {
         $calConfigs = array_filter(Config::calendars(), fn($c) => $c->enabled);
         self::fetchIcs($calConfigs);
+        $calendars = [];
         foreach ($calConfigs as $calConfig) {
             $calendars[] = new Calendar($calConfig);
         }
