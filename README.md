@@ -4,16 +4,28 @@ ics based freetime seeker for cff employees.
 
 ## Set up
 
-Install dependencies:
+### Install dependencies
 
     composer install
 
     npm install
 
-Create config file:
+### Create config file
 
     cp config.example.json config.json
 
-Serve locally:
+### Generate password
+
+    php -r 'echo password_hash("password", PASSWORD_DEFAULT) . "\n";'
+
+Copy result to "passphrase" in `config.json`.
+
+### Serve locally
 
     composer serve
+
+Open http://localhost:1234/
+
+### Generate css for production
+
+    npm run build

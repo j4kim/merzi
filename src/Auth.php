@@ -6,7 +6,7 @@ class Auth
 {
     public static function attempt(string $passphrase): bool
     {
-        return Config::passphrase() === $passphrase;
+        return password_verify($passphrase, Config::passphrase());
     }
 
     public static function login(string $passphrase): bool
