@@ -61,7 +61,7 @@ class Calendar
                 $cal->icsData = $cal->cached->get();
             } else {
                 $cal->icsData = (string) $responses[$cal->name]->getBody();
-                $cal->cached->set($cal->icsData)->expiresAfter(3600);
+                $cal->cached->set($cal->icsData)->expiresAfter(60 * 60 * 24);
                 $cache->save($cal->cached);
             }
         }
