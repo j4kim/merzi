@@ -6,7 +6,6 @@
 
 <div class="mt-2 flex justify-between">
     <a href="<?= $base ?>settings" class="hover:opacity-50">⚙ Réglages</a>
-    <a href="<?= $base ?>fresh" class="hover:opacity-50">🔄 Rafraichir</a>
 </div>
 
 <style>
