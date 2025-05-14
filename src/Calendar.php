@@ -46,7 +46,9 @@ class Calendar
     public static function fetchIcs(array $calConfigs)
     {
         $cache = new FilesystemAdapter();
-        $client = new Client();
+        $proxy = Config::proxy();
+        $params = $proxy ? ['proxy' => $proxy] : [];
+        $client = new Client($params);
         $promises = [];
         foreach ($calConfigs as $cal) {
             $key = preg_replace('/[\{\}\(\)\/\\\@\:]/', "-", $cal->url);
