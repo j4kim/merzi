@@ -75,7 +75,12 @@ class Calendar
     public static function getCalendars(): array
     {
         $calConfigs = array_filter(Config::calendars(), fn($c) => $c->enabled);
-        self::fetchIcs($calConfigs);
+        try {
+            self::fetchIcs($calConfigs);
+        } catch (\Throwable $th) {
+            http_response_code(500);
+            return ['message' => 'Unable to fetch calendars', 'error' => $th->getMessage()];
+        }
         $calendars = [];
         foreach ($calConfigs as $calConfig) {
             $calendars[] = new Calendar($calConfig);
