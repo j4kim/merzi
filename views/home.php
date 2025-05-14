@@ -57,12 +57,26 @@
         });
         calendar.render();
 
-        const response = await fetch("<?= $base ?>api/calendars");
+        var response, json
+
+        try {
+            response = await fetch("<?= $base ?>api/calendars");
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            json = await response.json();
+        } catch (error) {
+            return console.error("Fetching calendars failed.", error.message);
+        } finally {
+            calendarEl.classList.remove('loading');
+        }
+
         const {
             calendars,
             showIndividual,
             showCommon
-        } = await response.json();
+        } = json
+
 
         calendars.forEach((cal, index) => {
             if (showIndividual) {
@@ -113,7 +127,5 @@
                 events
             });
         }
-
-        calendarEl.classList.remove('loading')
     });
 </script>
