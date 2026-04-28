@@ -25,13 +25,11 @@ class Calendar
     public function parseEvents()
     {
         $vcalendar = Reader::read($this->icsData);
-        $now = new DateTimeImmutable();
         $regex = Config::regex();
         foreach ($vcalendar->VEVENT as $vevent) {
             $start = $vevent->DTSTART->getDateTime();
             $end = $vevent->DTEND->getDateTime();
             $title = (string) $vevent->SUMMARY;
-            if ($end < $now) continue;
             if (!preg_match($regex, $title)) continue;
             $title = str_replace("Absence", $this->id, $title);
             $this->events[] = [
