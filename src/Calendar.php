@@ -8,6 +8,7 @@ use GuzzleHttp\Promise\Utils;
 use Sabre\VObject\Reader;
 use stdClass;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Throwable;
 
 class Calendar
 {
@@ -75,21 +76,15 @@ class Calendar
         $calConfigs = array_filter(Config::calendars(), fn($c) => $c->enabled);
         try {
             self::fetchIcs($calConfigs);
-        } catch (\Throwable $th) {
-            http_response_code(500);
-            return ['message' => 'Unable to fetch calendars', 'error' => $th->getMessage()];
+        } catch (Throwable $th) {
+            abort("Unable to fetch calendars", $th);
         }
         $calendars = [];
         foreach ($calConfigs as $calConfig) {
             try {
                 $calendars[] = new Calendar($calConfig);
-            } catch (\Throwable $th) {
-                http_response_code(500);
-                return [
-                    'message' => 'Unable to parse calendar',
-                    'calConfig' => $calConfig,
-                    'error' => $th->getMessage()
-                ];
+            } catch (Throwable $th) {
+                abort("Unable to parse calendar", $th, ['calName' => $calConfig->name]);
             }
         }
         return $calendars;
