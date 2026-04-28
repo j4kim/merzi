@@ -3,17 +3,17 @@
     "calendars": [
         {
             "name": "Mark",
-            "url": "http:\/\/localhost:5000\/Mark.ics",
+            "url": "http:\/\/localhost:5678\/Mark.ics",
             "enabled": true
         },
         {
             "name": "Helly",
-            "url": "http:\/\/localhost:5000\/Helly.ics",
+            "url": "http:\/\/localhost:5678\/Helly.ics",
             "enabled": true
         },
         {
             "name": "Dylan",
-            "url": "http:\/\/localhost:5000\/Dylan.ics",
+            "url": "http:\/\/localhost:5678\/Dylan.ics",
             "enabled": true
         }
     ],
