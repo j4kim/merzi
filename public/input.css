@@ -1,2 +1,2 @@
-@import "tailwindcss";
-@source not "../public";
+@import "tailwindcss" source(none);
+@source "../views/";
