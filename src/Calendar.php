@@ -24,7 +24,6 @@ class Calendar
 
     public function parseEvents()
     {
-        $vcalendar = Reader::read($this->icsData);
         $regex = Config::regex();
         foreach ($vcalendar->VEVENT as $vevent) {
             $start = $vevent->DTSTART->getDateTime();
@@ -81,7 +80,16 @@ class Calendar
         }
         $calendars = [];
         foreach ($calConfigs as $calConfig) {
-            $calendars[] = new Calendar($calConfig);
+            try {
+                $calendars[] = new Calendar($calConfig);
+            } catch (\Throwable $th) {
+                http_response_code(500);
+                return [
+                    'message' => 'Unable to parse calendar',
+                    'calConfig' => $calConfig,
+                    'error' => $th->getMessage()
+                ];
+            }
         }
         return $calendars;
     }
