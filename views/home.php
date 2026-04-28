@@ -18,17 +18,11 @@
     }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script src="lib//dayjs.min.js"></script>
+<script src='lib/fullcalendar/index.global.min.js'></script>
+<script src='lib/fullcalendar/fr-ch.global.min.js'></script>
 
 <script type="module">
-    import {
-        Calendar
-    } from "https://cdn.skypack.dev/@fullcalendar/core@6.1.17";
-    import locale from "https://cdn.skypack.dev/@fullcalendar/core@6.1.17/locales/fr-ch";
-    import dayGridPlugin from "https://cdn.skypack.dev/@fullcalendar/daygrid@6.1.17";
-    import listPlugin from "https://cdn.skypack.dev/@fullcalendar/list@6.1.17";
-    import multiMonthPlugin from "https://cdn.skypack.dev/@fullcalendar/multimonth@6.1.17";
-
     const colors = [
         "#55cc99",
         "#cc9955",
@@ -40,9 +34,8 @@
 
     document.addEventListener("DOMContentLoaded", async function() {
         const calendarEl = document.getElementById("calendar");
-        const calendar = new Calendar(calendarEl, {
-            plugins: [listPlugin, dayGridPlugin, multiMonthPlugin],
-            locale,
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'fr-ch',
             headerToolbar: {
                 left: "prev,next today",
                 center: "title",
