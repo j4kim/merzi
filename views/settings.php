@@ -105,6 +105,16 @@
         </label>
     </div>
 
+    <div>
+        <label>
+            <input
+                type="checkbox"
+                name="showAllEvents"
+                <?= J4kim\Merzi\Config::showAllEvents() ? 'checked' : '' ?>>
+            Afficher tous les événements
+        </label>
+    </div>
+
     <p>
         <button
             class="border border-slate-300 rounded-sm bg-slate-500 text-white hover:bg-slate-600 w-full px-4 py-2"

@@ -33,8 +33,13 @@ class Calendar
             $start = $vevent->DTSTART->getDateTime();
             $end = $vevent->DTEND->getDateTime();
             $title = (string) $vevent->SUMMARY;
-            if (!preg_match($regex, $title)) continue;
-            $title = str_replace("Absence", $this->id, $title);
+            if (Config::showAllEvents()) {
+                $title = "$this->id: $title";
+            } else if (preg_match($regex, $title)) {
+                $title = str_replace("Absence", $this->id, $title);
+            } else {
+                continue;
+            }
             $this->events[] = [
                 'title' => $title,
                 'start' => $start->format('Y-m-d H:i:s'),

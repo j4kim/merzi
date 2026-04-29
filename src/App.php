@@ -63,6 +63,7 @@ class App
                 'regex' => $_POST['regex'],
                 'showIndividual' => isset($_POST['showIndividual']),
                 'showCommon' => isset($_POST['showCommon']),
+                'showAllEvents' => isset($_POST['showAllEvents']),
             ]);
             $this->redirect();
         });
@@ -89,6 +90,7 @@ class App
                 'calendars' => Calendar::getCalendars(),
                 'showIndividual' => Config::showIndividual(),
                 'showCommon' => Config::showCommon(),
+                'showAllEvents' => Config::showAllEvents(),
             ]);
         });
 

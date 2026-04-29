@@ -66,7 +66,8 @@
         const {
             calendars,
             showIndividual,
-            showCommon
+            showCommon,
+            showAllEvents,
         } = json
 
         if (!calendars.length) {
@@ -74,7 +75,7 @@
         }
 
         calendars.forEach((cal, index) => {
-            if (showIndividual) {
+            if (showIndividual || showAllEvents) {
                 cal.color = colors[index % colors.length]
                 calendar.addEventSource(cal);
             }
