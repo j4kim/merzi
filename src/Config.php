@@ -17,7 +17,8 @@ class Config
     public static function __callStatic($property, $arguments)
     {
         self::loadConfig();
-        return @self::$configOject->$property;
+        $default = @$arguments[0] ?? null;
+        return @self::$configOject->$property ?? $default;
     }
 
     public static function store($settings)
