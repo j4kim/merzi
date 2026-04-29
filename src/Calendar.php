@@ -25,7 +25,8 @@ class Calendar
 
     public function parseEvents()
     {
-        $vcalendar = Reader::read($this->icsData);
+        $cleanIcs = preg_replace("/\n(?![A-Z]).*\n/", "\\n", $this->icsData);
+        $vcalendar = Reader::read($cleanIcs);
         $regex = Config::regex();
         foreach ($vcalendar->VEVENT as $vevent) {
             $start = $vevent->DTSTART->getDateTime();
