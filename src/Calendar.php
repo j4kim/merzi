@@ -25,7 +25,8 @@ class Calendar
 
     public function parseEvents()
     {
-        $cleanIcs = preg_replace("/\n(?![A-Z]).*\n/", "\\n", $this->icsData);
+        // remove illegal new lines: new lines followed by other stuff than ical property (uppercase and dashes followed by : or ;)
+        $cleanIcs = preg_replace("/(\n)(?![A-Z\-]+[:;]).*\n/", "\\n", $this->icsData);
         $vcalendar = Reader::read($cleanIcs);
         $regex = Config::regex();
         foreach ($vcalendar->VEVENT as $vevent) {
