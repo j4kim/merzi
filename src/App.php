@@ -63,6 +63,7 @@ class App
                 'regex' => $_POST['regex'],
                 'showIndividual' => isset($_POST['showIndividual']),
                 'showCommon' => isset($_POST['showCommon']),
+                'futureOnly' => isset($_POST['futureOnly']),
             ]);
             $this->redirect();
         });

@@ -28,11 +28,13 @@ class Calendar
         // remove illegal new lines: new lines followed by other stuff than ical property (uppercase and dashes followed by : or ;)
         $cleanIcs = preg_replace("/(\n)(?![A-Z\-]+[:;]).*\n/", "\\n", $this->icsData);
         $vcalendar = Reader::read($cleanIcs);
+        $now = new DateTimeImmutable();
         $regex = Config::regex();
         foreach ($vcalendar->VEVENT as $vevent) {
             $start = $vevent->DTSTART->getDateTime();
             $end = $vevent->DTEND->getDateTime();
             $title = (string) $vevent->SUMMARY;
+            if (Config::futureOnly() && $end < $now) continue;
             if (!preg_match($regex, $title)) continue;
             $title = str_replace("Absence", $this->id, $title);
             $this->events[] = [
